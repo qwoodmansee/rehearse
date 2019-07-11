@@ -1,0 +1,1 @@
+import Navigator from '@navigation/src/components/navigator';
