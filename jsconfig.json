@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@core/*": ["modules/core/*"],
+      "@home/*": ["modules/home/*"],
+      "@navigation/*": ["modules/navigation/*"],
+      "@root/*": ["."],
+    },
+  },
+}

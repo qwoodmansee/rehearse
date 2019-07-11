@@ -1,0 +1,11 @@
+{
+  "editor.tabSize": 2,
+  "eslint.autoFixOnSave": true,
+  "files.trimTrailingWhitespace": true,
+  "javascript.preferences.importModuleSpecifier": "non-relative",
+  "javascript.updateImportsOnFileMove.enabled": "never",
+  "javascript.validate.enable": false,
+  "typescript.format.enable": false,
+  "typescript.reportStyleChecksAsWarnings": false,
+  "typescript.validate.enable": false
+}
