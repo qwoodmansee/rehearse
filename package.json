@@ -30,6 +30,7 @@
     "@storybook/addon-ondevice-knobs": "^5.1.9",
     "@storybook/addon-ondevice-notes": "^5.1.9",
     "@storybook/react-native": "^5.1.9",
+    "@testing-library/react-native": "^4.0.7",
     "babel-preset-expo": "^5.1.1",
     "emotion": "^10.0.14",
     "emotion-theming": "^10.0.14",

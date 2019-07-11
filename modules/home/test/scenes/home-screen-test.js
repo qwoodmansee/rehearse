@@ -1,11 +1,10 @@
 import HomeScreen from '@home/src/scenes/home-screen';
 import React from 'react';
-import renderer from 'react-test-renderer';
+import { render } from '@testing-library/react-native';
 
 describe('Homescreen', () => {
   it('should render the welcome message', () => {
-    const tree = renderer.create(<HomeScreen />).toJSON();
-    const stringTree = JSON.stringify(tree);
-    expect(stringTree).toEqual(expect.stringContaining('working on your app!'));
+    const { getByText } = render(<HomeScreen />);
+    getByText('Open up home-screen.js to start working on your app!');
   });
 });
