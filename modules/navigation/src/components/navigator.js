@@ -1,5 +1,5 @@
 import Routes from '@navigation/src/components/routes';
-import { createStackNavigator, createAppContainer } from "react-navigation";
+import { createAppContainer, createStackNavigator } from 'react-navigation';
 
 const AppNavigator = createStackNavigator(Routes);
 

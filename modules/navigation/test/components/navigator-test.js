@@ -1,5 +1,5 @@
-import React from 'react';
 import Navigator from '@navigation/src/components/navigator';
+import React from 'react';
 import Routes from '@navigation/src/components/routes';
 import renderer from 'react-test-renderer';
 

@@ -5,7 +5,7 @@ describe('Routes', () => {
     Object.keys(Routes).forEach((routeName) => {
       const route = Routes[routeName];
       expect(Object.keys(route)).toContain('screen');
-      expect(Routes[routeName]['screen']).toBeInstanceOf(Function)
-    })
+      expect(Routes[routeName]['screen']).toBeInstanceOf(Function);
+    });
   });
 });
