@@ -9,9 +9,12 @@
     "eject": "expo eject",
     "test": "jest",
     "test:single": "jest",
-    "lint": "eslint --quiet modules"
+    "lint": "eslint --quiet modules",
+    "prestorybook": "rnstl",
+    "storybook": "expo start --config app-storybook.json"
   },
   "dependencies": {
+    "@emotion/core": "^10.0.14",
     "babel-plugin-module-resolver": "^3.2.0",
     "expo": "^33.0.0",
     "react": "16.8.3",
@@ -23,13 +26,29 @@
     "react-test-renderer": "^16.8.6"
   },
   "devDependencies": {
+    "@storybook/addon-knobs": "^5.1.9",
+    "@storybook/addon-ondevice-knobs": "^5.1.9",
+    "@storybook/addon-ondevice-notes": "^5.1.9",
+    "@storybook/react-native": "^5.1.9",
     "babel-preset-expo": "^5.1.1",
+    "emotion": "^10.0.14",
+    "emotion-theming": "^10.0.14",
     "eslint": "^6.0.1",
-    "jest-expo": "^33.0.2",
-    "eslint-plugin-root": "https://github.com/Root-App/root-eslint-plugin#97e5ae704c48e84303bab2cc001cb04fc578f374",
     "eslint-plugin-jest": "^22.7.1",
     "eslint-plugin-react": "^7.14.2",
-    "eslint-plugin-react-hooks": "^1.6.1"
+    "eslint-plugin-react-hooks": "^1.6.1",
+    "eslint-plugin-root": "https://github.com/Root-App/root-eslint-plugin#97e5ae704c48e84303bab2cc001cb04fc578f374",
+    "jest-expo": "^33.0.2",
+    "react-native-storybook-loader": "^1.8.0"
+  },
+  "config": {
+    "react-native-storybook-loader": {
+      "searchDir": [
+        "./modules"
+      ],
+      "outputFile": "./storybook/generated-stories.js",
+      "pattern": "**/*-stories.js"
+    }
   },
   "private": true
 }
