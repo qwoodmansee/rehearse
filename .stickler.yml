@@ -1,6 +1,6 @@
 linters:
     eslint:
-        config: '@root/.eslinrc.js'
+        config: 'eslintrc.js'
 
 files:
   ignore:
