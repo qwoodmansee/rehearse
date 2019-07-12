@@ -1,6 +1,6 @@
 import React from 'react';
 import RehearseButton from '@core/src/components/rehearse-button';
-import { NativeTestEvent, fireEvent, render } from '@testing-library/react-native';
+import { fireEvent, render } from '@testing-library/react-native';
 
 describe('RehearseButton', () => {
   it('renders the button with the passed in text', () => {
@@ -25,7 +25,7 @@ describe('RehearseButton', () => {
       />);
 
     const button = getByText('Button Test Text');
-    fireEvent(button, new NativeTestEvent('press'));
+    fireEvent.press(button);
     expect(onPressMock.mock.calls.length).toEqual(1);
   });
 });
