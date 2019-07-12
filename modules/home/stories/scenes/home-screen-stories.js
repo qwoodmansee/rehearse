@@ -6,7 +6,6 @@ import { storiesOf } from '@storybook/react-native';
 const style = {
   flex: 1,
   justifyContent: 'center',
-  alignItems: 'center',
   backgroundColor: '#F5FCFF',
 };
 

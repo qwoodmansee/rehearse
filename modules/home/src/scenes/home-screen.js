@@ -1,19 +1,47 @@
+import Colors from '@theme/src/utils/colors';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import RehearseButton from '@core/src/components/rehearse-button';
+import RehearseText from '@core/src/components/rehearse-text';
+import Theme from '@theme/src/utils/theme';
+import { SafeAreaView, StyleSheet, View } from 'react-native';
 
 export default function HomeScreen() {
   return (
-    <View style={styles.container}>
-      <Text>Open up home-screen.js to start working on your app!</Text>
-    </View>
+    <SafeAreaView style={styles.sceneContainer}>
+      <View style={styles.appNameContainer}>
+        <RehearseText style={styles.appName}>rehearse.</RehearseText>
+      </View>
+      <View style={styles.buttonContainer}>
+        <RehearseButton style={styles.button}>
+          <RehearseText>Continue</RehearseText>
+        </RehearseButton>
+      </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  sceneContainer: {
+    backgroundColor: Colors.primary(),
     flex: 1,
-    backgroundColor: '#fff',
+  },
+  appNameContainer: {
+    flex: 1,
+    alignItems: 'flex-end',
+    justifyContent: 'flex-start',
+  },
+  appName: {
+    ...Theme.title1(),
+  },
+  buttonContainer: {
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  button: {
+    backgroundColor: Colors.secondaryLight(),
+    borderRadius: 20,
+    justifyContent: 'center',
+    padding: 10,
   },
 });
