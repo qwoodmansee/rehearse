@@ -5,7 +5,7 @@ import renderer from 'react-test-renderer';
 
 describe('navigator', () => {
   it('creates an app container with a navigator', () => {
-    const tree = renderer.create(<Navigator />).toTree();
+    const tree = renderer.create(<Navigator />).toTree()
     expect(tree.type.router).not.toBeNull();
   });
 
