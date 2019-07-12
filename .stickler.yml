@@ -1,0 +1,8 @@
+linters:
+    eslint:
+        config: '../.eslinrc.js'
+
+files:
+  ignore:
+    - 'node_modules/*'
+    - 'storybook/generated-stories.js'
