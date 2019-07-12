@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+  - node
+  - lts/*
+cache:
+  yarn: true
+  directories:
+    - ~/.npm
+    - .jest
+before_script:
+  - yarn install
+script:
+  - yarn lint
+  - yarn jest --ci
