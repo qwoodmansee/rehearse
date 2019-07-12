@@ -8,6 +8,7 @@ module.exports = function (api) {
           '@core': './modules/core',
           '@navigation': './modules/navigation/',
           '@home': './modules/home',
+          '@theme': './modules/theme',
           '@root': './',
           'underscore': 'lodash',
         },

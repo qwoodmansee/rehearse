@@ -5,6 +5,7 @@
       "@core/*": ["modules/core/*"],
       "@home/*": ["modules/home/*"],
       "@navigation/*": ["modules/navigation/*"],
+      "@theme/*": ["modules/theme/*"],
       "@root/*": ["."],
     },
   },
