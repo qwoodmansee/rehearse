@@ -3,8 +3,13 @@ import React from 'react';
 import { render } from '@testing-library/react-native';
 
 describe('Homescreen', () => {
-  it('should render the welcome message', () => {
+  it('should render the title of the app', () => {
     const { getByText } = render(<HomeScreen />);
-    getByText('Open up home-screen.js to start working on your app!');
+    getByText('rehearse.');
+  });
+
+  it('contain a call to action to move forward in the app', () => {
+    const { getByText } = render(<HomeScreen />);
+    getByText('Continue');
   });
 });

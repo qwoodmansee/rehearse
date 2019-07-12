@@ -1,43 +1,41 @@
 /* eslint-disable react/prop-types */
 import Colors from '@theme/src/utils/colors';
 import React from 'react';
-import RehearseButton from '@core/src/components/rehearse-button';
-import { SafeAreaView, Text } from 'react-native';
+import RehearseText from '@core/src/components/rehearse-text';
+import { SafeAreaView } from 'react-native';
 import { storiesOf } from '@storybook/react-native';
 
 const style = {
   flex: 1,
   justifyContent: 'center',
   alignItems: 'center',
+  backgroundColor: Colors.primary(),
 };
 
 const CenteredView = ({ children }) => <SafeAreaView style={style}>{children}</SafeAreaView>;
 
-storiesOf('Rehearse Button', module)
+storiesOf('Rehearse Text', module)
   .add('default', () => (
     <CenteredView>
-      <RehearseButton
+      <RehearseText
         onPress={() => {}}
       >
-        <Text>This is a button</Text>
-      </RehearseButton>
+        Text!
+      </RehearseText>
     </CenteredView>
   ))
   .add('with some styling', () => {
     const styles = {
-      backgroundColor: Colors.secondaryLight(),
-      borderRadius: 20,
-      justifyContent: 'center',
-      padding: 10,
+      color: Colors.secondaryLight(),
     };
     return (
       <CenteredView>
-        <RehearseButton
+        <RehearseText
           onPress={() => {}}
           style={styles}
         >
-          <Text>This is a button</Text>
-        </RehearseButton>
+          Text with Color!
+        </RehearseText>
       </CenteredView>
     );
   });

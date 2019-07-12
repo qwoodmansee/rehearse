@@ -6,6 +6,7 @@
 
 function loadStories() {
   require('../modules/core/stories/components/rehearse-button-stories');
+  require('../modules/core/stories/components/rehearse-text-stories');
   require('../modules/home/stories/scenes/home-screen-stories');
   require('../modules/navigation/stories/components/navigator-stories');
   
@@ -13,6 +14,7 @@ function loadStories() {
 
 const stories = [
   '../modules/core/stories/components/rehearse-button-stories',
+  '../modules/core/stories/components/rehearse-text-stories',
   '../modules/home/stories/scenes/home-screen-stories',
   '../modules/navigation/stories/components/navigator-stories',
   
