@@ -7,7 +7,7 @@ rehearse is an iOS/Android application used to practice difficult pieces of musi
 rehearse is currently under active development in an extremely early stage. Once core features are complete, you'll be able to find rehearse on the App Store and Play Store. Be sure to keep an eye on the repository for updates!
 
 ## Running Locally
-
+[![Build Status](https://travis-ci.org/qwoodmansee/rehearse.svg?branch=master)](https://travis-ci.org/qwoodmansee/rehearse)
 Rehearse was built using React Native on top of the [expo](https://expo.io/learn) toolset. You'll need an Android Simulator (we recommend downloading [Android Studio](https://developer.android.com/studio)) and/or an iOS Simulator (we recommend installing [XCode](https://developer.apple.com/xcode/)), but otherwise running the app locally is simple:
 
 ```bash
