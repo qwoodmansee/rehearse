@@ -1,14 +1,14 @@
 import App from '@root/App.js';
 import React from 'react';
-import renderer from 'react-test-renderer';
+import { render } from '@testing-library/react-native';
 
 jest.mock('@navigation/src/components/navigator', () => 'Navigator');
 
 describe('App', () => {
   describe('using a mocked navigator', () => {
     it('renders the mocked app', () => {
-      const tree = renderer.create(<App />).toJSON();
-      expect(tree).toMatchSnapshot();
+      const { baseElement } = render(<App />);
+      expect(baseElement).toMatchSnapshot();
     });
   });
 });
