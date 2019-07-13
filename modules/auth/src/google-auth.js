@@ -1,4 +1,5 @@
 import { Google } from 'expo';
+import { deleteItemAsync, getItemAsync, setItemAsync } from 'expo-secure-store';
 
 const config = {
   iosClientId: '187519984491-61hv6hvufpeiai7sg41rre5ka62e5fs7.apps.googleusercontent.com',
@@ -12,8 +13,9 @@ export async function SignInWithGoogleAsync() {
   try {
     const { type, accessToken } = await Google.logInAsync(config);
     if (type === 'success') {
+      await setItemAsync('google-access-token', accessToken);
       return {
-        accessToken,
+        success: true,
       };
     } else {
       return {
@@ -27,12 +29,14 @@ export async function SignInWithGoogleAsync() {
   }
 }
 
-export async function SignOutWithGoogleAsync({ accessToken }) {
+export async function SignOutWithGoogleAsync() {
+  const accessToken = await getItemAsync('google-access-token');
   try {
     await Google.logOutAsync({
       accessToken,
       ...config,
     });
+    await deleteItemAsync('google-access-token');
   } catch (e) {
     return {
       error: true,

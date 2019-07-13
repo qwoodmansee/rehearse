@@ -1,22 +1,33 @@
 import Colors from '@theme/src/utils/colors';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import RehearseButton from '@core/src/components/rehearse-button';
 import RehearseText from '@core/src/components/rehearse-text';
 import Theme from '@theme/src/utils/theme';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { SignInWithGoogleAsync, SignOutWithGoogleAsync } from '@auth/src/google-auth';
+import { getItemAsync } from 'expo-secure-store';
 
 export default function HomeScreen() {
-  const [accessToken, setAccessToken] = useState();
+  const [isSignedIn, setIsSignedIn] = useState();
+
+  useEffect(() => {
+    const fetchAccessToken = async () => {
+      const accessToken = await getItemAsync('google-access-token');
+      setIsSignedIn(!!accessToken);
+    };
+    fetchAccessToken();
+  }, []);
 
   const handleSignIn = async () => {
-    const result = await SignInWithGoogleAsync();
-    if (result.accessToken) { setAccessToken(result.accessToken); }
+    await SignInWithGoogleAsync();
+    const accessToken = await getItemAsync('google-access-token');
+    setIsSignedIn(!!accessToken);
   };
 
-  const handleSignOut = () => {
-    SignOutWithGoogleAsync(accessToken);
-    setAccessToken(undefined);
+  const handleSignOut = async () => {
+    await SignOutWithGoogleAsync();
+    const accessToken = await getItemAsync('google-access-token');
+    setIsSignedIn(!!accessToken);
   };
 
   return (
@@ -25,7 +36,7 @@ export default function HomeScreen() {
         <RehearseText style={styles.appName}>rehearse.</RehearseText>
       </View>
       <View style={styles.buttonContainer}>
-        {accessToken ? (
+        {isSignedIn ? (
           <RehearseButton
             onPress={handleSignOut}
             style={styles.button}
