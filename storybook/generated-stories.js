@@ -9,6 +9,8 @@ function loadStories() {
   require('../modules/core/stories/components/rehearse-text-stories');
   require('../modules/home/stories/scenes/home-screen-stories');
   require('../modules/navigation/stories/components/navigator-stories');
+  require('../modules/song-selection/stories/components/song-selection-button-stories');
+  require('../modules/song-selection/stories/scenes/song-selection-stories');
   
 }
 
@@ -17,6 +19,8 @@ const stories = [
   '../modules/core/stories/components/rehearse-text-stories',
   '../modules/home/stories/scenes/home-screen-stories',
   '../modules/navigation/stories/components/navigator-stories',
+  '../modules/song-selection/stories/components/song-selection-button-stories',
+  '../modules/song-selection/stories/scenes/song-selection-stories',
   
 ];
 

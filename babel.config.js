@@ -9,6 +9,7 @@ module.exports = function (api) {
           '@core': './modules/core',
           '@navigation': './modules/navigation/',
           '@home': './modules/home',
+          '@song-selection': './modules/song-selection',
           '@theme': './modules/theme',
           '@root': './',
           'underscore': 'lodash',
