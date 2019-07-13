@@ -2,6 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "@auth/*": ["modules/auth/*"],
       "@core/*": ["modules/core/*"],
       "@home/*": ["modules/home/*"],
       "@navigation/*": ["modules/navigation/*"],
