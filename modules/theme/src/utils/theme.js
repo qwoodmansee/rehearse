@@ -25,14 +25,6 @@ export default class Theme {
     };
   }
 
-  static title3NonResponsive() {
-    return {
-      fontSize: 22,
-      lineHeight: 26,
-      color: Colors.white(),
-    };
-  }
-
   static bigTitle() {
     return {
       fontSize: 44,
