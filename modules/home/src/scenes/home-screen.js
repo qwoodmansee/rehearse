@@ -1,14 +1,17 @@
 import Colors from '@theme/src/utils/colors';
+import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import RehearseButton from '@core/src/components/rehearse-button';
 import RehearseText from '@core/src/components/rehearse-text';
 import SafeAreaView from '@core/src/components/safe-area-view';
 import Theme from '@theme/src/utils/theme';
-import { SignInWithGoogleAsync, SignOutWithGoogleAsync } from '@auth/src/google-auth';
+import { RandomSongList } from '@song-selection/test/factories/song-list-factory';
+import { SignInWithGoogleAsync } from '@auth/src/google-auth';
 import { StyleSheet, View } from 'react-native';
 import { getItemAsync } from 'expo-secure-store';
+import { withMappedNavigationParams } from 'react-navigation-props-mapper';
 
-export default function HomeScreen() {
+function HomeScreen({ navigation }) {
   const [isSignedIn, setIsSignedIn] = useState();
 
   useEffect(() => {
@@ -25,10 +28,12 @@ export default function HomeScreen() {
     setIsSignedIn(!!accessToken);
   };
 
-  const handleSignOut = async () => {
-    await SignOutWithGoogleAsync();
-    const accessToken = await getItemAsync('google-access-token');
-    setIsSignedIn(!!accessToken);
+  const continueToSongSelection = () => {
+    const songs = RandomSongList(6);
+
+    navigation.navigate('SongSelection', {
+      songs,
+    });
   };
 
   return (
@@ -37,14 +42,7 @@ export default function HomeScreen() {
         <RehearseText style={styles.appName}>rehearse.</RehearseText>
       </View>
       <View style={styles.buttonContainer}>
-        {isSignedIn ? (
-          <RehearseButton
-            onPress={handleSignOut}
-            style={styles.button}
-          >
-            <RehearseText>Sign Out</RehearseText>
-          </RehearseButton>
-        ) : (
+        {isSignedIn ? continueToSongSelection() : (
           <RehearseButton
             onPress={handleSignIn}
             style={styles.button}
@@ -56,6 +54,10 @@ export default function HomeScreen() {
     </SafeAreaView>
   );
 }
+
+HomeScreen.propTypes = {
+  navigation: PropTypes.any,
+};
 
 const styles = StyleSheet.create({
   sceneContainer: {
@@ -82,3 +84,5 @@ const styles = StyleSheet.create({
     padding: 10,
   },
 });
+
+export default withMappedNavigationParams()(HomeScreen);

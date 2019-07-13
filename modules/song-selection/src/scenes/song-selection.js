@@ -5,13 +5,15 @@ import RehearseText from '@core/src/components/rehearse-text';
 import SafeAreaView from '@core/src/components/safe-area-view';
 import Song from '@core/src/models/song';
 import SongSelectionButton from '@song-selection/src/components/song-selection-button';
+import Theme from '@theme/src/utils/theme';
 import { StyleSheet, View } from 'react-native';
+import { withMappedNavigationParams } from 'react-navigation-props-mapper';
 
-export default function SongSelection({ songs }) {
+function SongSelection({ songs }) {
   return (
     <SafeAreaView style={styles.sceneContainer}>
       <View style={styles.songListContainer}>
-        <RehearseText>Select Song</RehearseText>
+        <RehearseText style={styles.selectSongTitle}>Select Song</RehearseText>
         {songs.map((song, i) => {
           return (
             <SongSelectionButton
@@ -39,7 +41,12 @@ const styles = StyleSheet.create({
   songListContainer: {
     alignItems: 'center',
   },
+  selectSongTitle: {
+    ...Theme.title2(),
+  },
   songSelectButton: {
     margin: 10,
   },
 });
+
+export default withMappedNavigationParams()(SongSelection);
