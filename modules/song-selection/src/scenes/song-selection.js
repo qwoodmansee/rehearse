@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import RehearseText from '@core/src/components/rehearse-text';
 import SafeAreaView from '@core/src/components/safe-area-view';
+import Song from '@core/src/models/song';
 import SongSelectionButton from '@song-selection/src/components/song-selection-button';
 import { StyleSheet, View } from 'react-native';
 
@@ -27,10 +28,7 @@ export default function SongSelection({ songs }) {
 }
 
 SongSelection.propTypes = {
-  songs: PropTypes.arrayOf(PropTypes.shape({
-    songName: PropTypes.string,
-    songLength: PropTypes.number,
-  })),
+  songs: PropTypes.arrayOf(PropTypes.instanceOf(Song)),
 };
 
 const styles = StyleSheet.create({

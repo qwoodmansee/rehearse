@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
+import SafeAreaView from '@core/src/components/safe-area-view';
 import SongSelection from '@song-selection/src/scenes/song-selection';
-import { View } from 'react-native';
+import { RandomSongList } from '@song-selection/test/factories/song-list-factory';
 import { storiesOf } from '@storybook/react-native';
 
 const style = {
@@ -10,27 +11,10 @@ const style = {
   backgroundColor: '#F5FCFF',
 };
 
-const CenteredView = ({ children }) => <View style={style}>{children}</View>;
+const CenteredView = ({ children }) => <SafeAreaView style={style}>{children}</SafeAreaView>;
 
 storiesOf('Song Selection', module).add('default', () => {
-  const songs = [
-    {
-      songName: 'Song Number 1',
-      songLength: 58,
-    },
-    {
-      songName: 'Song Number 2',
-      songLength: 126,
-    },
-    {
-      songName: 'Song Number 3',
-      songLength: 68,
-    },
-    {
-      songName: 'Song Number 4',
-      songLength: 416,
-    },
-  ];
+  const songs = RandomSongList(8);
   return (
     <CenteredView>
       <SongSelection songs={songs} />
