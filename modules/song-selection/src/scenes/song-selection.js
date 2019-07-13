@@ -2,8 +2,9 @@ import Colors from '@theme/src/utils/colors';
 import PropTypes from 'prop-types';
 import React from 'react';
 import RehearseText from '@core/src/components/rehearse-text';
+import SafeAreaView from '@core/src/components/safe-area-view';
 import SongSelectionButton from '@song-selection/src/components/song-selection-button';
-import { SafeAreaView, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 export default function SongSelection({ songs }) {
   return (

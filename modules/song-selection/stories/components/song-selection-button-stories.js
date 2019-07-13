@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
+import SafeAreaView from '@core/src/components/safe-area-view';
 import SongSelectionButton from '@song-selection/src/components/song-selection-button';
-import { SafeAreaView } from 'react-native';
 import { storiesOf } from '@storybook/react-native';
 
 const style = {

@@ -2,9 +2,10 @@ import Colors from '@theme/src/utils/colors';
 import React, { useEffect, useState } from 'react';
 import RehearseButton from '@core/src/components/rehearse-button';
 import RehearseText from '@core/src/components/rehearse-text';
+import SafeAreaView from '@core/src/components/safe-area-view';
 import Theme from '@theme/src/utils/theme';
-import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { SignInWithGoogleAsync, SignOutWithGoogleAsync } from '@auth/src/google-auth';
+import { StyleSheet, View } from 'react-native';
 import { getItemAsync } from 'expo-secure-store';
 
 export default function HomeScreen() {

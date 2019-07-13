@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import HomeScreen from '@home/src/scenes/home-screen';
 import React from 'react';
-import { View } from 'react-native';
+import SafeAreaView from '@core/src/components/safe-area-view';
 import { storiesOf } from '@storybook/react-native';
 const style = {
   flex: 1,
@@ -9,7 +9,7 @@ const style = {
   backgroundColor: '#F5FCFF',
 };
 
-const CenteredView = ({ children }) => <View style={style}>{children}</View>;
+const CenteredView = ({ children }) => <SafeAreaView style={style}>{children}</SafeAreaView>;
 
 storiesOf('Home Screen', module).add('default', () => (
   <CenteredView>
