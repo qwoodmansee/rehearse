@@ -1,20 +1,45 @@
 import Colors from '@theme/src/utils/colors';
-import React from 'react';
+import React, { useState } from 'react';
 import RehearseButton from '@core/src/components/rehearse-button';
 import RehearseText from '@core/src/components/rehearse-text';
 import Theme from '@theme/src/utils/theme';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
+import { SignInWithGoogleAsync, SignOutWithGoogleAsync } from '@auth/src/google-auth';
 
 export default function HomeScreen() {
+  const [accessToken, setAccessToken] = useState();
+
+  const handleSignIn = async () => {
+    const result = await SignInWithGoogleAsync();
+    if (result.accessToken) { setAccessToken(result.accessToken); }
+  };
+
+  const handleSignOut = () => {
+    SignOutWithGoogleAsync(accessToken);
+    setAccessToken(undefined);
+  };
+
   return (
     <SafeAreaView style={styles.sceneContainer}>
       <View style={styles.appNameContainer}>
         <RehearseText style={styles.appName}>rehearse.</RehearseText>
       </View>
       <View style={styles.buttonContainer}>
-        <RehearseButton style={styles.button}>
-          <RehearseText>Continue</RehearseText>
-        </RehearseButton>
+        {accessToken ? (
+          <RehearseButton
+            onPress={handleSignOut}
+            style={styles.button}
+          >
+            <RehearseText>Sign Out</RehearseText>
+          </RehearseButton>
+        ) : (
+          <RehearseButton
+            onPress={handleSignIn}
+            style={styles.button}
+          >
+            <RehearseText>Sign In With Google</RehearseText>
+          </RehearseButton>
+        )}
       </View>
     </SafeAreaView>
   );
