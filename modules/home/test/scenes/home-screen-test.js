@@ -1,3 +1,4 @@
+import * as ExpoSecureStore from 'expo-secure-store';
 import HomeScreen from '@home/src/scenes/home-screen';
 import React from 'react';
 import { SignInWithGoogleAsync } from '@auth/src/google-auth';
@@ -5,12 +6,6 @@ import { act, fireEvent, render, wait } from '@testing-library/react-native';
 
 jest.mock('@auth/src/google-auth', () => ({
   SignInWithGoogleAsync: jest.fn(),
-}));
-
-jest.mock('expo-secure-store', () => ({
-  getItemAsync: () => {
-    return Promise.resolve(null);
-  },
 }));
 
 describe('Homescreen', () => {
@@ -50,6 +45,26 @@ describe('Homescreen', () => {
 
         expect(SignInWithGoogleAsync).toHaveBeenCalled();
       });
+    });
+  });
+
+  describe('when the user is signed in', () => {
+    beforeEach(() => {
+      ExpoSecureStore.getItemAsync = () => {
+        return Promise.resolve('some_access_key');
+      };
+    });
+
+    it('navigates to the next screen', () => {
+      const mockNavigator = {
+        navigate: jest.fn(),
+      };
+      jest.useFakeTimers();
+      render(<HomeScreen navigation={mockNavigator} />);
+      act(() => {
+        jest.runAllTimers();
+      });
+      expect(mockNavigator.navigate).toHaveBeenCalled();
     });
   });
 });
