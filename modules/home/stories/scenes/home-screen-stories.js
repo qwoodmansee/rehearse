@@ -13,6 +13,10 @@ const CenteredView = ({ children }) => <SafeAreaView style={style}>{children}</S
 
 storiesOf('Home Screen', module).add('default', () => (
   <CenteredView>
-    <HomeScreen />
+    <HomeScreen
+      navigation={{
+        navigate: () => {},
+      }}
+    />
   </CenteredView>
 ));
