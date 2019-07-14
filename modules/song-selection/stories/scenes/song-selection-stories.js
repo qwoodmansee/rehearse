@@ -1,8 +1,10 @@
 /* eslint-disable react/prop-types */
-import HomeScreen from '@home/src/scenes/home-screen';
 import React from 'react';
 import SafeAreaView from '@core/src/components/safe-area-view';
+import SongSelection from '@song-selection/src/scenes/song-selection';
+import { RandomSongList } from '@song-selection/test/factories/song-list-factory';
 import { storiesOf } from '@storybook/react-native';
+
 const style = {
   flex: 1,
   justifyContent: 'center',
@@ -11,12 +13,11 @@ const style = {
 
 const CenteredView = ({ children }) => <SafeAreaView style={style}>{children}</SafeAreaView>;
 
-storiesOf('Home Screen', module).add('default', () => (
-  <CenteredView>
-    <HomeScreen
-      navigation={{
-        navigate: () => {},
-      }}
-    />
-  </CenteredView>
-));
+storiesOf('Song Selection', module).add('default', () => {
+  const songs = RandomSongList(8);
+  return (
+    <CenteredView>
+      <SongSelection songs={songs} />
+    </CenteredView>
+  );
+});

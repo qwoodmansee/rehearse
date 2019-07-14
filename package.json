@@ -24,6 +24,7 @@
     "react-native-gesture-handler": "~1.2.1",
     "react-native-web": "^0.11.4",
     "react-navigation": "^3.11.0",
+    "react-navigation-props-mapper": "^1.0.1",
     "react-test-renderer": "^16.8.6"
   },
   "devDependencies": {

@@ -2,7 +2,8 @@
 import Colors from '@theme/src/utils/colors';
 import React from 'react';
 import RehearseButton from '@core/src/components/rehearse-button';
-import { SafeAreaView, Text } from 'react-native';
+import SafeAreaView from '@core/src/components/safe-area-view';
+import { Text } from 'react-native';
 import { storiesOf } from '@storybook/react-native';
 
 const style = {

@@ -6,6 +6,7 @@
       "@core/*": ["modules/core/*"],
       "@home/*": ["modules/home/*"],
       "@navigation/*": ["modules/navigation/*"],
+      "@song-selection/*": ["modules/song-selection/*"],
       "@theme/*": ["modules/theme/*"],
       "@root/*": ["."],
     },

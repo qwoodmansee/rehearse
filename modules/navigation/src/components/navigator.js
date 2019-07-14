@@ -3,6 +3,7 @@ import { createAppContainer, createStackNavigator } from 'react-navigation';
 
 const AppNavigator = createStackNavigator(Routes, {
   headerMode: 'none',
+  initialRouteName: 'Home',
 });
 
 export default createAppContainer(AppNavigator);
