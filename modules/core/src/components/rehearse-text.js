@@ -12,9 +12,9 @@ export default function RehearseText({
 }) {
   return (
     <TextComponent
-      {...additionalProps}
       onPress={onPress}
       style={[styles.text, style]}
+      {...additionalProps}
     >
       {children}
     </TextComponent>

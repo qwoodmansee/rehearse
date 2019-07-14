@@ -1,43 +1,45 @@
-import Colors from '@theme/src/utils/colors';
 import PropTypes from 'prop-types';
 import React from 'react';
 import RehearseText from '@core/src/components/rehearse-text';
-import SafeAreaView from '@core/src/components/safe-area-view';
+import SceneWrapper from '@core/src/components/scene-wrapper';
 import Song from '@core/src/models/song';
 import SongSelectionButton from '@song-selection/src/components/song-selection-button';
 import Theme from '@theme/src/utils/theme';
 import { StyleSheet, View } from 'react-native';
 import { withMappedNavigationParams } from 'react-navigation-props-mapper';
 
-function SongSelection({ songs }) {
+function SongSelection({ navigation, songs }) {
+  const onSongSelect = (song) => {
+    navigation.navigate('PlayerScene', {
+      song,
+    });
+  };
+
   return (
-    <SafeAreaView style={styles.sceneContainer}>
+    <SceneWrapper navigation={navigation}>
       <View style={styles.songListContainer}>
         <RehearseText style={styles.selectSongTitle}>Select Song</RehearseText>
         {songs.map((song, i) => {
           return (
             <SongSelectionButton
               key={i}
-              onPress={() => {}}
+              onPress={() => onSongSelect(song)}
               songLength={song.songLength}
               songName={song.songName}
               style={styles.songSelectButton}
             />);
         })}
       </View>
-    </SafeAreaView>
+    </SceneWrapper>
   );
 }
 
 SongSelection.propTypes = {
+  navigation: PropTypes.any,
   songs: PropTypes.arrayOf(PropTypes.instanceOf(Song)),
 };
 
 const styles = StyleSheet.create({
-  sceneContainer: {
-    backgroundColor: Colors.primary(),
-    flex: 1,
-  },
   songListContainer: {
     alignItems: 'center',
   },
