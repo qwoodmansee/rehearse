@@ -13,3 +13,10 @@ export function RandomPlayerControlList(numControls) {
     controlFn: () => {},
   }));
 }
+
+export function ConsistentPlayerControlList() {
+  return [...Array(12)].map(() => new PlayerControl({
+    icon: MetronomeUp,
+    controlFn: () => {},
+  }));
+}
