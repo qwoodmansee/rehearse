@@ -1,0 +1,455 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PlayerControls renders 1`] = `
+<View
+  pointerEvents="box-none"
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View
+    collapsable={true}
+    pointerEvents="box-none"
+    style={
+      Object {
+        "flex": 1,
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "flexWrap": "wrap",
+          "justifyContent": "space-evenly",
+          "width": "95%",
+        }
+      }
+    >
+      <TouchableOpacity
+        activeOpacity={0.2}
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#f05545",
+              "borderRadius": 20,
+              "height": 80,
+              "justifyContent": "center",
+              "padding": 10,
+              "position": "relative",
+              "width": 80,
+            },
+            Object {
+              "marginTop": 10,
+            },
+          ]
+        }
+        testID="internal-button"
+      >
+        <Image
+          source={
+            Object {
+              "testUri": "../../../modules/player/assets/metronome-up.png",
+            }
+          }
+          style={
+            Object {
+              "height": 50,
+              "width": 50,
+            }
+          }
+        />
+      </TouchableOpacity>
+      <TouchableOpacity
+        activeOpacity={0.2}
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#f05545",
+              "borderRadius": 20,
+              "height": 80,
+              "justifyContent": "center",
+              "padding": 10,
+              "position": "relative",
+              "width": 80,
+            },
+            Object {
+              "marginTop": 10,
+            },
+          ]
+        }
+        testID="internal-button"
+      >
+        <Image
+          source={
+            Object {
+              "testUri": "../../../modules/player/assets/metronome-up.png",
+            }
+          }
+          style={
+            Object {
+              "height": 50,
+              "width": 50,
+            }
+          }
+        />
+      </TouchableOpacity>
+      <TouchableOpacity
+        activeOpacity={0.2}
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#f05545",
+              "borderRadius": 20,
+              "height": 80,
+              "justifyContent": "center",
+              "padding": 10,
+              "position": "relative",
+              "width": 80,
+            },
+            Object {
+              "marginTop": 10,
+            },
+          ]
+        }
+        testID="internal-button"
+      >
+        <Image
+          source={
+            Object {
+              "testUri": "../../../modules/player/assets/metronome-up.png",
+            }
+          }
+          style={
+            Object {
+              "height": 50,
+              "width": 50,
+            }
+          }
+        />
+      </TouchableOpacity>
+      <TouchableOpacity
+        activeOpacity={0.2}
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#f05545",
+              "borderRadius": 20,
+              "height": 80,
+              "justifyContent": "center",
+              "padding": 10,
+              "position": "relative",
+              "width": 80,
+            },
+            Object {
+              "marginTop": 10,
+            },
+          ]
+        }
+        testID="internal-button"
+      >
+        <Image
+          source={
+            Object {
+              "testUri": "../../../modules/player/assets/metronome-up.png",
+            }
+          }
+          style={
+            Object {
+              "height": 50,
+              "width": 50,
+            }
+          }
+        />
+      </TouchableOpacity>
+      <TouchableOpacity
+        activeOpacity={0.2}
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#f05545",
+              "borderRadius": 20,
+              "height": 80,
+              "justifyContent": "center",
+              "padding": 10,
+              "position": "relative",
+              "width": 80,
+            },
+            Object {
+              "marginTop": 10,
+            },
+          ]
+        }
+        testID="internal-button"
+      >
+        <Image
+          source={
+            Object {
+              "testUri": "../../../modules/player/assets/metronome-up.png",
+            }
+          }
+          style={
+            Object {
+              "height": 50,
+              "width": 50,
+            }
+          }
+        />
+      </TouchableOpacity>
+      <TouchableOpacity
+        activeOpacity={0.2}
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#f05545",
+              "borderRadius": 20,
+              "height": 80,
+              "justifyContent": "center",
+              "padding": 10,
+              "position": "relative",
+              "width": 80,
+            },
+            Object {
+              "marginTop": 10,
+            },
+          ]
+        }
+        testID="internal-button"
+      >
+        <Image
+          source={
+            Object {
+              "testUri": "../../../modules/player/assets/metronome-up.png",
+            }
+          }
+          style={
+            Object {
+              "height": 50,
+              "width": 50,
+            }
+          }
+        />
+      </TouchableOpacity>
+      <TouchableOpacity
+        activeOpacity={0.2}
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#f05545",
+              "borderRadius": 20,
+              "height": 80,
+              "justifyContent": "center",
+              "padding": 10,
+              "position": "relative",
+              "width": 80,
+            },
+            Object {
+              "marginTop": 10,
+            },
+          ]
+        }
+        testID="internal-button"
+      >
+        <Image
+          source={
+            Object {
+              "testUri": "../../../modules/player/assets/metronome-up.png",
+            }
+          }
+          style={
+            Object {
+              "height": 50,
+              "width": 50,
+            }
+          }
+        />
+      </TouchableOpacity>
+      <TouchableOpacity
+        activeOpacity={0.2}
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#f05545",
+              "borderRadius": 20,
+              "height": 80,
+              "justifyContent": "center",
+              "padding": 10,
+              "position": "relative",
+              "width": 80,
+            },
+            Object {
+              "marginTop": 10,
+            },
+          ]
+        }
+        testID="internal-button"
+      >
+        <Image
+          source={
+            Object {
+              "testUri": "../../../modules/player/assets/metronome-up.png",
+            }
+          }
+          style={
+            Object {
+              "height": 50,
+              "width": 50,
+            }
+          }
+        />
+      </TouchableOpacity>
+      <TouchableOpacity
+        activeOpacity={0.2}
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#f05545",
+              "borderRadius": 20,
+              "height": 80,
+              "justifyContent": "center",
+              "padding": 10,
+              "position": "relative",
+              "width": 80,
+            },
+            Object {
+              "marginTop": 10,
+            },
+          ]
+        }
+        testID="internal-button"
+      >
+        <Image
+          source={
+            Object {
+              "testUri": "../../../modules/player/assets/metronome-up.png",
+            }
+          }
+          style={
+            Object {
+              "height": 50,
+              "width": 50,
+            }
+          }
+        />
+      </TouchableOpacity>
+      <TouchableOpacity
+        activeOpacity={0.2}
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#f05545",
+              "borderRadius": 20,
+              "height": 80,
+              "justifyContent": "center",
+              "padding": 10,
+              "position": "relative",
+              "width": 80,
+            },
+            Object {
+              "marginTop": 10,
+            },
+          ]
+        }
+        testID="internal-button"
+      >
+        <Image
+          source={
+            Object {
+              "testUri": "../../../modules/player/assets/metronome-up.png",
+            }
+          }
+          style={
+            Object {
+              "height": 50,
+              "width": 50,
+            }
+          }
+        />
+      </TouchableOpacity>
+      <TouchableOpacity
+        activeOpacity={0.2}
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#f05545",
+              "borderRadius": 20,
+              "height": 80,
+              "justifyContent": "center",
+              "padding": 10,
+              "position": "relative",
+              "width": 80,
+            },
+            Object {
+              "marginTop": 10,
+            },
+          ]
+        }
+        testID="internal-button"
+      >
+        <Image
+          source={
+            Object {
+              "testUri": "../../../modules/player/assets/metronome-up.png",
+            }
+          }
+          style={
+            Object {
+              "height": 50,
+              "width": 50,
+            }
+          }
+        />
+      </TouchableOpacity>
+      <TouchableOpacity
+        activeOpacity={0.2}
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#f05545",
+              "borderRadius": 20,
+              "height": 80,
+              "justifyContent": "center",
+              "padding": 10,
+              "position": "relative",
+              "width": 80,
+            },
+            Object {
+              "marginTop": 10,
+            },
+          ]
+        }
+        testID="internal-button"
+      >
+        <Image
+          source={
+            Object {
+              "testUri": "../../../modules/player/assets/metronome-up.png",
+            }
+          }
+          style={
+            Object {
+              "height": 50,
+              "width": 50,
+            }
+          }
+        />
+      </TouchableOpacity>
+    </View>
+  </View>
+</View>
+`;
