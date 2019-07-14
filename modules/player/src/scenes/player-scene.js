@@ -1,22 +1,22 @@
 import PlayerControls from '@player/src/components/player-controls';
+import PropTypes from 'prop-types';
 import React from 'react';
 import RehearseText from '@core/src/components/rehearse-text';
-import SafeAreaView from '@core/src/components/safe-area-view';
+import SceneWrapper from '@core/src/components/scene-wrapper';
+import Song from '@core/src/models/song';
 import Theme from '@theme/src/utils/theme';
 import { ConsistentPlayerControlList } from '@player/test/factories/player-control-factory';
 import { View } from 'react-native';
+import { withMappedNavigationParams } from 'react-navigation-props-mapper';
 
-export default function PlayerScene() {
+function PlayerScene({ navigation, song }) {
   const playerControls = ConsistentPlayerControlList();
 
   return (
-    <SafeAreaView>
+    <SceneWrapper navigation={navigation}>
       <View style={styles.playerContainer}>
-        <View style={styles.playerTitleContainer}>
-          <RehearseText style={styles.playerTitle}>{'<'}</RehearseText>
-        </View>
         <View style={styles.songInfoContainer}>
-          <RehearseText style={styles.songTitle}>Song Title</RehearseText>
+          <RehearseText style={styles.songTitle}>{song.songName}</RehearseText>
           <RehearseText>Current Practice Point: A</RehearseText>
           <RehearseText>Current Speed: 100%</RehearseText>
         </View>
@@ -25,9 +25,14 @@ export default function PlayerScene() {
           <PlayerControls controls={playerControls} />
         </View>
       </View>
-    </SafeAreaView>
+    </SceneWrapper>
   );
 }
+
+PlayerScene.propTypes = {
+  navigation: PropTypes.any,
+  song: PropTypes.instanceOf(Song),
+};
 
 const styles = {
   playerContainer: {
@@ -40,9 +45,6 @@ const styles = {
     marginLeft: 20,
     marginTop: 20,
     flex: 1,
-  },
-  playerTitle: {
-    ...Theme.title2(),
   },
   songInfoContainer: {
     justifyContent: 'flex-start',
@@ -61,3 +63,5 @@ const styles = {
     marginBottom: 40,
   },
 };
+
+export default withMappedNavigationParams()(PlayerScene);
