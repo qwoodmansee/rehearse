@@ -31,7 +31,7 @@ PlayerControls.propTypes = {
 
 const styles = {
   controlsContainer: {
-    width: '90%',
+    width: '95%',
     justifyContent: 'space-evenly',
     alignItems: 'center',
     flexDirection: 'row',

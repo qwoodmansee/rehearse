@@ -25,7 +25,7 @@ exports[`PlayerControls renders 1`] = `
           "flexDirection": "row",
           "flexWrap": "wrap",
           "justifyContent": "space-evenly",
-          "width": "90%",
+          "width": "95%",
         }
       }
     >

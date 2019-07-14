@@ -12,6 +12,7 @@ function loadStories() {
   require('../modules/player/stories/components/icon-button-stories');
   require('../modules/player/stories/components/player-control-button-stories');
   require('../modules/player/stories/components/player-controls-stories');
+  require('../modules/player/stories/scenes/player-scene-stories');
   require('../modules/song-selection/stories/components/song-selection-button-stories');
   require('../modules/song-selection/stories/scenes/song-selection-stories');
   
@@ -25,6 +26,7 @@ const stories = [
   '../modules/player/stories/components/icon-button-stories',
   '../modules/player/stories/components/player-control-button-stories',
   '../modules/player/stories/components/player-controls-stories',
+  '../modules/player/stories/scenes/player-scene-stories',
   '../modules/song-selection/stories/components/song-selection-button-stories',
   '../modules/song-selection/stories/scenes/song-selection-stories',
   
