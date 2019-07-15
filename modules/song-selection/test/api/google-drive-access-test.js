@@ -10,6 +10,9 @@ describe('GetSongs', () => {
     let downloadAsyncCalled;
     beforeEach(() => {
       downloadAsyncCalled = false;
+      global.Headers = () => ({
+        append: () => {},
+      });
       ReactNative.Headers = () => {};
       ExpoSecureStore.getItemAsync = () => 'some_access_token';
       ExpoFileSystem.getInfoAsync = () => {
@@ -21,17 +24,16 @@ describe('GetSongs', () => {
         downloadAsyncCalled = true;
       };
       ExpoFileSystem.documentDirectory = 'someDirectory/';
-      fetchMock.getOnce('https://www.googleapis.com/drive/v3/files', Promise.resolve({
+
+      fetchMock.getOnce(/drive\/v3\/files/, Promise.resolve({
         status: 200,
-        data: {
-          files: [
-            {
-              name: 'some-song-name-1',
-              id: 'some-song-id-1',
-              mimeType: 'audio/x-wav',
-            },
-          ],
-        },
+        files: [
+          {
+            name: 'some-song-name-1',
+            id: 'some-song-id-1',
+            mimeType: 'audio/x-wav',
+          },
+        ],
       }));
     });
 

@@ -1,22 +1,25 @@
 import Song from '@core/src/models/song';
-import { documentDirectory, downloadAsync, getInfoAsync } from 'expo-file-system';
+import { createDownloadResumable, deleteAsync, documentDirectory, getInfoAsync, makeDirectoryAsync } from 'expo-file-system';
 import { getItemAsync } from 'expo-secure-store';
 
 export async function GetSongs(googleDriveURL) {
-  const songFolderId = getQueryVariable({
+  const googleSongFolderId = getQueryVariable({
     variable: 'id',
     url: googleDriveURL,
   });
 
+  const localSongsDirectoryInfo = await getInfoAsync(`${documentDirectory}songs/`);
+  if (!localSongsDirectoryInfo.exists) { await makeDirectoryAsync(`${documentDirectory}songs/`); }
+
   const accessToken = await getItemAsync('google-access-token');
   if (accessToken) {
-    try {
-      const songs = await getSongMetadata(songFolderId, accessToken);
-      await downloadSongs(songs, accessToken);
-      return Promise.resolve(songs);
-    } catch (err) {
-      throw new Error('error downloading songs from google drive!', err);
-    }
+    // try {
+    const songs = await getSongMetadata(googleSongFolderId, accessToken);
+    await downloadSongs(songs, accessToken);
+    return Promise.resolve(songs);
+    // } catch (err) {
+    //   throw new Error('error downloading songs from google drive!', err);
+    // }
   } else {
     throw new Error('cant communicate with Google Drive if not logged in!');
   }
@@ -33,25 +36,47 @@ const getSongMetadata = async (songFolderId, accessToken) => {
       return new Song({
         songName: songMeta.name,
         googleDriveId: songMeta.id,
-        localDownloadUri: `${documentDirectory}${songMeta.id}.${fileExtension}`,
+        localDownloadUri: `${documentDirectory}songs/${songMeta.id}.${fileExtension}`,
         googleDriveUrl,
-    });
+      });
     }));
     return Promise.resolve(songs);
   }
 };
 
 const downloadSongs = async (songs, accessToken) => {
-  const options = configureGetOptions(accessToken);
+  console.log('staring download');
   songs.forEach(async (song) => {
     if (song.localDownloadUri) {
       const existingFileData = await getInfoAsync(song.localDownloadUri);
       if (existingFileData.exists && existingFileData.size > 0) {
+        // await deleteAsync(song.localDownloadUri);
         return;
       }
     }
-    await downloadAsync(`${song.googleDriveUrl}?alt=media`, song.localDownloadUri, options);
+    const logProgress = (downloadProgress) => {
+      const progress =
+        downloadProgress.totalBytesWritten /
+        downloadProgress.totalBytesExpectedToWrite;
+      console.log(progress);
+    };
+
+    const resumable = createDownloadResumable(
+      `${song.googleDriveUrl}?alt=media`,
+      song.localDownloadUri,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      },
+      logProgress);
+    try {
+      await resumable.downloadAsync();
+    } catch (e) {
+      console.error(e);
+    }
   });
+  console.log('download done');
 };
 
 const getSongFileExtension = async (googleDriveUrl, accessToken) => {
@@ -74,9 +99,14 @@ const getQueryVariable = ({ variable, url }) => {
   return false;
 };
 
-const configureGetOptions = (accessToken) => {
+const configureHeaders = (accessToken) => {
   const headers = new Headers();
   headers.append('Authorization', `Bearer ${accessToken}`);
+  return headers;
+};
+
+const configureGetOptions = (accessToken) => {
+  const headers = configureHeaders(accessToken);
   return {
     method: 'GET',
     headers,

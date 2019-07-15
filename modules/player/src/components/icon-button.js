@@ -7,6 +7,7 @@ import { Image } from 'react-native';
 export default function IconButton({
   onPress,
   icon,
+  children,
   style = {},
   ...additionalProps
 }) {
@@ -16,17 +17,21 @@ export default function IconButton({
       style={[styles.buttonStyle, style]}
       {...additionalProps}
     >
-      <Image
-        source={icon}
-        style={{
-          width: 50,
-          height: 50,
-        }}
-      />
+      {icon &&
+        <Image
+          source={icon}
+          style={{
+            width: 50,
+            height: 50,
+          }}
+        />
+      }
+      {children}
     </RehearseButton>);
 }
 
 IconButton.propTypes = {
+  children: PropTypes.node,
   icon: PropTypes.any.isRequired,
   onPress: PropTypes.func,
   style: PropTypes.object,

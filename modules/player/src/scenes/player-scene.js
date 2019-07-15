@@ -1,35 +1,51 @@
+import AudioPlayer from '@player/src/utils/audio-player';
+import Colors from '@theme/src/utils/colors';
 import PlayerControls from '@player/src/components/player-controls';
+import PropTypes from 'prop-types';
 import React from 'react';
+import RealPlayerControls from '@player/src/utils/real-player-controls';
 import RehearseText from '@core/src/components/rehearse-text';
 import SafeAreaView from '@core/src/components/safe-area-view';
+import Song from '@core/src/models/song';
 import Theme from '@theme/src/utils/theme';
-import { ConsistentPlayerControlList } from '@player/test/factories/player-control-factory';
 import { View } from 'react-native';
+import { withMappedNavigationParams } from 'react-navigation-props-mapper';
 
-export default function PlayerScene() {
-  const playerControls = ConsistentPlayerControlList();
+function PlayerScene({ navigation, song }) {
+  const audioPlayer = new AudioPlayer(song);
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.sceneContainer}>
       <View style={styles.playerContainer}>
         <View style={styles.playerTitleContainer}>
-          <RehearseText style={styles.playerTitle}>{'<'}</RehearseText>
+          <RehearseText
+            onPress={() => navigation.goBack()}
+            style={styles.playerTitle}
+          >{'<'}
+          </RehearseText>
         </View>
         <View style={styles.songInfoContainer}>
-          <RehearseText style={styles.songTitle}>Song Title</RehearseText>
-          <RehearseText>Current Practice Point: A</RehearseText>
-          <RehearseText>Current Speed: 100%</RehearseText>
+          <RehearseText style={styles.songTitle}>{song.songName}</RehearseText>
         </View>
         <View style={styles.controlsContainer}>
           <RehearseText styles={styles.scrubber}>Scrubber here eventually</RehearseText>
-          <PlayerControls controls={playerControls} />
+          <PlayerControls controls={RealPlayerControls(audioPlayer)} />
         </View>
       </View>
     </SafeAreaView>
   );
 }
 
+PlayerScene.propTypes = {
+  navigation: PropTypes.any,
+  song: PropTypes.instanceOf(Song),
+};
+
 const styles = {
+  sceneContainer: {
+    backgroundColor: Colors.primary(),
+    flex: 1,
+  },
   playerContainer: {
     flexDirection: 'column',
     minHeight: '100%',
@@ -59,5 +75,8 @@ const styles = {
     justifyContent: 'flex-end',
     alignSelf: 'center',
     marginBottom: 40,
+    paddingBottom: 40,
   },
 };
+
+export default withMappedNavigationParams()(PlayerScene);

@@ -12,7 +12,7 @@ import { StyleSheet, View } from 'react-native';
 import { deleteItemAsync, getItemAsync, setItemAsync } from 'expo-secure-store';
 import { withMappedNavigationParams } from 'react-navigation-props-mapper';
 
-function SongSelection({ songs }) {
+function SongSelection({ songs, navigation }) {
   const [songList, setSongList] = useState(songs);
   const [downloadingSongs, setDownloadingSongs] = useState(false);
   const [driveUrl, setDriveUrl] = useState('https://drive.google.com/open?id=1wYdxpc_4-VJDuXiQSU4_NPVKoVqlTUtU');
@@ -22,6 +22,12 @@ function SongSelection({ songs }) {
     const downloadedSongs = await GetSongs(driveUrl);
     setSongList(downloadedSongs);
     setDownloadingSongs(false);
+  };
+
+  const onSongSelect = (song) => {
+    navigation.navigate('PlayerScene', {
+      song,
+    });
   };
 
   return (
@@ -44,7 +50,7 @@ function SongSelection({ songs }) {
           return (
             <SongSelectionButton
               key={i}
-              onPress={() => {}}
+              onPress={() => onSongSelect(song)}
               songLength={song.songLength}
               songName={song.songName}
               style={styles.songSelectButton}
@@ -59,6 +65,7 @@ function SongSelection({ songs }) {
 }
 
 SongSelection.propTypes = {
+  navigation: PropTypes.any,
   songs: PropTypes.arrayOf(PropTypes.instanceOf(Song)),
 };
 
