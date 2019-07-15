@@ -25,16 +25,18 @@ export async function GetSongs(googleDriveURL) {
 const getSongMetadata = async (songFolderId, accessToken) => {
   const options = configureGetOptions(accessToken);
   const response = await fetch(`https://www.googleapis.com/drive/v3/files?q='${songFolderId}'+in+parents`, options);
-
   if (response.status === 200) {
     const data = await response.json();
-    const songs = data.files.filter((songMeta) => songMeta.mimeType.startsWith('audio/')).map((songMeta) => {
+    const songs = await Promise.all(data.files.filter((songMeta) => songMeta.mimeType.startsWith('audio/')).map(async (songMeta) => {
+      const googleDriveUrl = `https://www.googleapis.com/drive/v3/files/${songMeta.id}`;
+      const fileExtension = await getSongFileExtension(googleDriveUrl, accessToken);
       return new Song({
         songName: songMeta.name,
         googleDriveId: songMeta.id,
-        localDownloadUri: `${documentDirectory}${songMeta.id}`,
-      });
+        localDownloadUri: `${documentDirectory}${songMeta.id}.${fileExtension}`,
+        googleDriveUrl,
     });
+    }));
     return Promise.resolve(songs);
   }
 };
@@ -48,8 +50,17 @@ const downloadSongs = async (songs, accessToken) => {
         return;
       }
     }
-    await downloadAsync(song.googleDriveUrl, song.localDownloadUri, options);
+    await downloadAsync(`${song.googleDriveUrl}?alt=media`, song.localDownloadUri, options);
   });
+};
+
+const getSongFileExtension = async (googleDriveUrl, accessToken) => {
+  const options = configureGetOptions(accessToken);
+  const response = await fetch(`${googleDriveUrl}?fields=fileExtension%2CfullFileExtension`, options);
+  if (response.status === 200) {
+    const data = await response.json();
+    return data.fileExtension;
+  }
 };
 
 const getQueryVariable = ({ variable, url }) => {
