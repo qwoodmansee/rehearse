@@ -29,8 +29,8 @@ function HomeScreen({ navigation }) {
   };
 
   const continueToSongSelection = () => {
-    const songs = RandomSongList(6);
-
+    // const songs = RandomSongList(6);
+    const songs = [];
     navigation.navigate('SongSelection', {
       songs,
     });
