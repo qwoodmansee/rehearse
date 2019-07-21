@@ -7,5 +7,11 @@ export default class Song {
     this.songName = songName;
     this.localDownloadUri = localDownloadUri;
     this.songLength = 0;
+    this.practiceSession = {
+      A: 0,
+      B: 0,
+      C: 0,
+      D: 0,
+    };
   }
 }
