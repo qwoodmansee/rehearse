@@ -57,4 +57,14 @@ export default class AudioPlayer {
     this.currentRatePercentage += percent;
     await this.playbackObject.setRateAsync(currentRate + currentRate * percent / 100, true, Audio.PitchCorrectionQuality.Medium);
   }
+
+  async playFromPracticePoint(pointName) {
+    const currentPlayStatus = await this.playbackObject.getStatusAsync();
+    if (!currentPlayStatus.isLoaded) { await this.loadAudioFile(); }
+    this.playbackObject.playFromPositionAsync(this.song.practiceSession[pointName]);
+  }
+
+  async setA() {
+
+  }
 }

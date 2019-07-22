@@ -1,6 +1,6 @@
 import Colors from '@theme/src/utils/colors';
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import RehearseButton from '@core/src/components/rehearse-button';
 import RehearseText from '@core/src/components/rehearse-text';
 import SafeAreaView from '@core/src/components/safe-area-view';
@@ -8,8 +8,7 @@ import Song from '@core/src/models/song';
 import SongSelectionButton from '@song-selection/src/components/song-selection-button';
 import Theme from '@theme/src/utils/theme';
 import { GetSongs } from '@song-selection/src/api/google-drive-access';
-import { StyleSheet, View } from 'react-native';
-import { deleteItemAsync, getItemAsync, setItemAsync } from 'expo-secure-store';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { withMappedNavigationParams } from 'react-navigation-props-mapper';
 
 function SongSelection({ songs, navigation }) {
@@ -17,12 +16,16 @@ function SongSelection({ songs, navigation }) {
   const [downloadingSongs, setDownloadingSongs] = useState(false);
   const [driveUrl, setDriveUrl] = useState('https://drive.google.com/open?id=1wYdxpc_4-VJDuXiQSU4_NPVKoVqlTUtU');
 
-  const handleGetSongs = async () => {
-    setDownloadingSongs(true);
-    const downloadedSongs = await GetSongs(driveUrl);
-    setSongList(downloadedSongs);
-    setDownloadingSongs(false);
-  };
+  useEffect(() => {
+    const fetchSongs = async () => {
+      const downloadedSongs = await GetSongs({
+        shouldDownload: false,
+        googleDriveURL: driveUrl,
+      });
+      setSongList(downloadedSongs);
+    };
+    fetchSongs();
+  }, [driveUrl, downloadingSongs]);
 
   const onSongSelect = (song) => {
     navigation.navigate('PlayerScene', {
@@ -30,23 +33,18 @@ function SongSelection({ songs, navigation }) {
     });
   };
 
+  const onGoogleSettingsSelect = () => {
+    navigation.navigate('GoogleSettings', {
+      originalDriveUrl: driveUrl,
+    });
+  };
+
   return (
     <SafeAreaView style={styles.sceneContainer}>
-      <View style={styles.songListContainer}>
+      <ScrollView contentContainerStyle={styles.songListContainer}>
         <RehearseText style={styles.selectSongTitle}>Select Song</RehearseText>
-        <RehearseText>Current Drive Url:</RehearseText>
-        <RehearseText>{driveUrl}</RehearseText>
-        <RehearseButton
-          onPress={() => handleGetSongs()}
-          style={styles.getSongsButton}
-        ><RehearseText>Attempt to get songs!</RehearseText>
-        </RehearseButton>
-        <RehearseButton
-          onPress={() => deleteItemAsync('google-access-token')}
-          style={styles.getSongsButton}
-        ><RehearseText>Log out of google</RehearseText>
-        </RehearseButton>
         {songList.map((song, i) => {
+          console.log(song);
           return (
             <SongSelectionButton
               key={i}
@@ -59,6 +57,15 @@ function SongSelection({ songs, navigation }) {
         {downloadingSongs &&
           <RehearseText>Downloading...</RehearseText>
         }
+      </ScrollView>
+
+      <View contentContainerStyle={styles.googleInteractionsContainer}>
+        <RehearseButton
+          onPress={() => onGoogleSettingsSelect()}
+          style={styles.googleInteractionButton}
+        >
+          <RehearseText>Sync from Google Drive</RehearseText>
+        </RehearseButton>
       </View>
     </SafeAreaView>
   );
@@ -83,13 +90,12 @@ const styles = StyleSheet.create({
   songSelectButton: {
     margin: 10,
   },
-  getSongsButton: {
+  googleInteractionsContainer: {},
+  googleInteractionButton: {
     margin: 10,
-    position: 'relative',
     backgroundColor: Colors.secondaryLight(),
     borderRadius: 20,
     padding: 10,
-    width: '90%',
   },
 });
 

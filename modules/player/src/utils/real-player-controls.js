@@ -12,22 +12,22 @@ export default function RealPlayerControls(audioPlayer) {
     new PlayerControl({
       icon: null,
       text: 'A',
-      controlFn: () => audioPlayer.play(),
+      controlFn: () => audioPlayer.playFromPracticePoint('A'),
     }),
     new PlayerControl({
       icon: null,
       text: 'B',
-      controlFn: () => audioPlayer.play(),
+      controlFn: () => audioPlayer.playFromPracticePoint('B'),
     }),
     new PlayerControl({
       icon: null,
       text: 'C',
-      controlFn: () => audioPlayer.play(),
+      controlFn: () => audioPlayer.playFromPracticePoint('C'),
     }),
     new PlayerControl({
       icon: null,
       text: 'D',
-      controlFn: () => audioPlayer.play(),
+      controlFn: () => audioPlayer.playFromPracticePoint('D'),
     }),
     new PlayerControl({
       icon: Play,

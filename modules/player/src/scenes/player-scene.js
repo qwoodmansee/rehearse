@@ -8,18 +8,21 @@ import RehearseText from '@core/src/components/rehearse-text';
 import SafeAreaView from '@core/src/components/safe-area-view';
 import Song from '@core/src/models/song';
 import Theme from '@theme/src/utils/theme';
+import { Slider } from 'react-native';
 import { View } from 'react-native';
 import { withMappedNavigationParams } from 'react-navigation-props-mapper';
 
 function PlayerScene({ navigation, song }) {
   const audioPlayer = new AudioPlayer(song);
-
   return (
     <SafeAreaView style={styles.sceneContainer}>
       <View style={styles.playerContainer}>
         <View style={styles.playerTitleContainer}>
           <RehearseText
-            onPress={() => navigation.goBack()}
+            onPress={() => {
+              audioPlayer.stop();
+              navigation.goBack();
+            }}
             style={styles.playerTitle}
           >{'<'}
           </RehearseText>
@@ -28,7 +31,13 @@ function PlayerScene({ navigation, song }) {
           <RehearseText style={styles.songTitle}>{song.songName}</RehearseText>
         </View>
         <View style={styles.controlsContainer}>
-          <RehearseText styles={styles.scrubber}>Scrubber here eventually</RehearseText>
+          <Slider
+            maximumTrackTintColor={Colors.secondaryDark()}
+            maximumValue={1}
+            minimumTrackTintColor={Colors.secondaryLight()}
+            minimumValue={0}
+            style={styles.scrubber}
+          />
           <PlayerControls controls={RealPlayerControls(audioPlayer)} />
         </View>
       </View>
@@ -69,7 +78,10 @@ const styles = {
     ...Theme.title1(),
     marginBottom: 10,
   },
-  scrubber: {},
+  scrubber: {
+    marginBottom: 10,
+    paddingBottom: 10,
+  },
   controlsContainer: {
     flex: 4,
     justifyContent: 'flex-end',
