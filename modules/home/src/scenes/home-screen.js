@@ -5,7 +5,6 @@ import RehearseButton from '@core/src/components/rehearse-button';
 import RehearseText from '@core/src/components/rehearse-text';
 import SafeAreaView from '@core/src/components/safe-area-view';
 import Theme from '@theme/src/utils/theme';
-import { RandomSongList } from '@song-selection/test/factories/song-list-factory';
 import { SignInWithGoogleAsync } from '@auth/src/google-auth';
 import { StyleSheet, View } from 'react-native';
 import { getItemAsync } from 'expo-secure-store';
@@ -29,7 +28,6 @@ function HomeScreen({ navigation }) {
   };
 
   const continueToSongSelection = () => {
-    // const songs = RandomSongList(6);
     const songs = [];
     navigation.navigate('SongSelection', {
       songs,

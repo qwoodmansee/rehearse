@@ -17,15 +17,17 @@ function GoogleSettings({
 }) {
   const [downloadingSongs, setDownloadingSongs] = useState(false);
   const [driveUrl, setDriveUrl] = useState(originalDriveUrl);
-  const [settingUrl, setSettingUrl] = useState(false);
+  const [settingUrl, setSettingUrl] = useState(driveUrl === '');
   const [tempUrlValue, setTempUrlValue] = useState('');
   const handleGetSongs = async () => {
     setDownloadingSongs(true);
+    onSyncSongsPressed(true);
     await GetSongs({
       shouldDownload: true,
       googleDriveURL: driveUrl,
     });
     setDownloadingSongs(false);
+    onSyncSongsPressed(true);
   };
 
   const handleDeleteSongs = async () => {
@@ -44,7 +46,7 @@ function GoogleSettings({
   const handleSetDriveUrl = () => {
     setSettingUrl(false);
     setDriveUrl(tempUrlValue);
-    onDriveURLUpdated();
+    onDriveURLUpdated(driveUrl);
   };
 
   const handleLogout = () => {
@@ -129,6 +131,9 @@ function GoogleSettings({
 
 GoogleSettings.propTypes = {
   navigation: PropTypes.any,
+  onDriveURLUpdated: PropTypes.func,
+  onSyncSongsPressed: PropTypes.func,
+  originalDriveUrl: PropTypes.string,
 };
 
 const styles = {

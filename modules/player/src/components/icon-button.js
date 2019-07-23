@@ -32,7 +32,7 @@ export default function IconButton({
 
 IconButton.propTypes = {
   children: PropTypes.node,
-  icon: PropTypes.any.isRequired,
+  icon: PropTypes.any,
   onPress: PropTypes.func,
   style: PropTypes.object,
 };

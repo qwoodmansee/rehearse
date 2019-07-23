@@ -8,11 +8,24 @@ export default class AudioPlayer {
     this.currentRatePercentage = 100;
   }
 
+  async currentPlaybackPercentage() {
+    const currentPlayStatus = await this.playbackObject.getStatusAsync();
+    return currentPlayStatus.positionMillis / currentPlayStatus.durationMillis * 100;
+  }
+
+  async setPlaybackStatusUpdate(playbackStatusCallback) {
+    this.playbackObject.setOnPlaybackStatusUpdate(null);
+    await this.playbackObject.setOnPlaybackStatusUpdate(playbackStatusCallback);
+  }
+
   async loadAudioFile() {
+    await this.playbackObject.unloadAsync();
+
     await this.playbackObject.loadAsync({
       uri: this.song.localDownloadUri,
     }, {
       shouldPlay: true,
+      progressUpdateIntervalMillis: 50,
     });
   }
 
@@ -40,6 +53,12 @@ export default class AudioPlayer {
     this.playbackObject.playFromPositionAsync(0);
   }
 
+  async setPosition(value) {
+    const currentPlayStatus = await this.playbackObject.getStatusAsync();
+    if (!currentPlayStatus.isLoaded) { await this.loadAudioFile(); }
+    this.playbackObject.setPositionAsync(value);
+  }
+
   async slowDownPercent(percent) {
     let currentPlayStatus = await this.playbackObject.getStatusAsync();
     if (!currentPlayStatus.isLoaded) { await this.loadAudioFile(); }
@@ -64,7 +83,9 @@ export default class AudioPlayer {
     this.playbackObject.playFromPositionAsync(this.song.practiceSession[pointName]);
   }
 
-  async setA() {
-
+  async setPracticePoint(pointName) {
+    const currentPlayStatus = await this.playbackObject.getStatusAsync();
+    if (!currentPlayStatus.isLoaded) { await this.loadAudioFile(); }
+    this.song.practiceSession[pointName] = currentPlayStatus.positionMillis;
   }
 }

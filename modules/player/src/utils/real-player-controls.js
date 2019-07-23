@@ -7,27 +7,43 @@ import PlayerControl from '@player/src/models/player-control';
 import Restart from '@player/assets/restart.png';
 import Stop from '@player/assets/stop.png';
 
-export default function RealPlayerControls(audioPlayer) {
+export default function RealPlayerControls(audioPlayer, isSettingPracticePoint, setIsSettingPracticePoint) {
   return [
     new PlayerControl({
       icon: null,
       text: 'A',
-      controlFn: () => audioPlayer.playFromPracticePoint('A'),
+      controlFn: isSettingPracticePoint ?
+        () => {
+          audioPlayer.setPracticePoint('A');
+          setIsSettingPracticePoint(false);
+        } : () => audioPlayer.playFromPracticePoint('A'),
     }),
     new PlayerControl({
       icon: null,
       text: 'B',
-      controlFn: () => audioPlayer.playFromPracticePoint('B'),
+      controlFn: isSettingPracticePoint ?
+        () => {
+          audioPlayer.setPracticePoint('B');
+          setIsSettingPracticePoint(false);
+        } : () => audioPlayer.playFromPracticePoint('B'),
     }),
     new PlayerControl({
       icon: null,
       text: 'C',
-      controlFn: () => audioPlayer.playFromPracticePoint('C'),
+      controlFn: isSettingPracticePoint ?
+        () => {
+          audioPlayer.setPracticePoint('C');
+          setIsSettingPracticePoint(false);
+        } : () => audioPlayer.playFromPracticePoint('C'),
     }),
     new PlayerControl({
       icon: null,
       text: 'D',
-      controlFn: () => audioPlayer.playFromPracticePoint('D'),
+      controlFn: isSettingPracticePoint ?
+        () => {
+          audioPlayer.setPracticePoint('D');
+          setIsSettingPracticePoint(false);
+        } : () => audioPlayer.playFromPracticePoint('D'),
     }),
     new PlayerControl({
       icon: Play,
@@ -60,7 +76,7 @@ export default function RealPlayerControls(audioPlayer) {
     new PlayerControl({
       icon: null,
       text: 'SET',
-      controlFn: () => audioPlayer.play(),
+      controlFn: () => setIsSettingPracticePoint(!isSettingPracticePoint),
     }),
   ];
 }

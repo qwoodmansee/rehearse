@@ -1,19 +1,54 @@
-import AudioPlayer from '@player/src/utils/audio-player';
+import AudioPlayer from '@core/src/utils/audio-player';
 import Colors from '@theme/src/utils/colors';
 import PlayerControls from '@player/src/components/player-controls';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState } from 'react';
 import RealPlayerControls from '@player/src/utils/real-player-controls';
 import RehearseText from '@core/src/components/rehearse-text';
 import SafeAreaView from '@core/src/components/safe-area-view';
-import Song from '@core/src/models/song';
 import Theme from '@theme/src/utils/theme';
 import { Slider } from 'react-native';
 import { View } from 'react-native';
 import { withMappedNavigationParams } from 'react-navigation-props-mapper';
 
-function PlayerScene({ navigation, song }) {
-  const audioPlayer = new AudioPlayer(song);
+function PlayerScene({
+  navigation, song, audioPlayer,
+}) {
+  const [sliderPosition, setSliderPosition] = useState(0);
+  const [isSeeking, setIsSeeking] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [duration, setDuration] = useState(0);
+  const [shouldPlay, setShouldPlay] = useState(false);
+  const [isBuffering, setIsBuffering] = useState(false);
+  const [isSettingPracticePoint, setIsSettingPracticePoint] = useState(false);
+
+  const soundCallback = (status) => {
+    if (status.didJustFinish) {
+      audioPlayer.stopAsync();
+    } else if (status.isLoaded) {
+      const position = isSeeking
+        ? sliderPosition
+        : status.positionMillis;
+      const updatedIsPlaying = isSeeking || status.isBuffering
+        ? isPlaying
+        : status.isPlaying;
+      setSliderPosition(position);
+      setDuration(status.durationMillis);
+      setShouldPlay(status.shouldPlay);
+      setIsPlaying(updatedIsPlaying);
+      setIsBuffering(status.isBuffering);
+    }
+  };
+
+  const onCompleteSliding = async (value) => {
+    if (audioPlayer !== null) {
+      await audioPlayer.setPosition(value);
+      setIsSeeking(true);
+    }
+  };
+
+  audioPlayer.setPlaybackStatusUpdate(soundCallback);
+
   return (
     <SafeAreaView style={styles.sceneContainer}>
       <View style={styles.playerContainer}>
@@ -29,16 +64,19 @@ function PlayerScene({ navigation, song }) {
         </View>
         <View style={styles.songInfoContainer}>
           <RehearseText style={styles.songTitle}>{song.songName}</RehearseText>
+          {isSettingPracticePoint && <RehearseText style={styles.songTitle}>Setting practice point</RehearseText>}
         </View>
         <View style={styles.controlsContainer}>
           <Slider
             maximumTrackTintColor={Colors.secondaryDark()}
-            maximumValue={1}
+            maximumValue={duration}
             minimumTrackTintColor={Colors.secondaryLight()}
             minimumValue={0}
+            onSlidingComplete={onCompleteSliding}
             style={styles.scrubber}
+            value={sliderPosition}
           />
-          <PlayerControls controls={RealPlayerControls(audioPlayer)} />
+          <PlayerControls controls={RealPlayerControls(audioPlayer, isSettingPracticePoint, setIsSettingPracticePoint)} />
         </View>
       </View>
     </SafeAreaView>
@@ -47,7 +85,12 @@ function PlayerScene({ navigation, song }) {
 
 PlayerScene.propTypes = {
   navigation: PropTypes.any,
-  song: PropTypes.instanceOf(Song),
+  song: PropTypes.shape({
+    localDownloadUri: PropTypes.string,
+    songName: PropTypes.string,
+    practiceSession: PropTypes.object,
+    audioPlayer: PropTypes.instanceOf(AudioPlayer),
+  }),
 };
 
 const styles = {

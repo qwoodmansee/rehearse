@@ -1,3 +1,4 @@
+import AudioPlayer from '@core/src/utils/audio-player';
 import Colors from '@theme/src/utils/colors';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
@@ -14,7 +15,7 @@ import { withMappedNavigationParams } from 'react-navigation-props-mapper';
 function SongSelection({ songs, navigation }) {
   const [songList, setSongList] = useState(songs);
   const [downloadingSongs, setDownloadingSongs] = useState(false);
-  const [driveUrl, setDriveUrl] = useState('https://drive.google.com/open?id=1wYdxpc_4-VJDuXiQSU4_NPVKoVqlTUtU');
+  const [driveUrl, setDriveUrl] = useState('');
 
   useEffect(() => {
     const fetchSongs = async () => {
@@ -30,12 +31,15 @@ function SongSelection({ songs, navigation }) {
   const onSongSelect = (song) => {
     navigation.navigate('PlayerScene', {
       song,
+      audioPlayer: new AudioPlayer(song),
     });
   };
 
   const onGoogleSettingsSelect = () => {
     navigation.navigate('GoogleSettings', {
       originalDriveUrl: driveUrl,
+      onDriveURLUpdated: (newDriveUrl) => setDriveUrl(newDriveUrl),
+      onSyncSongsPressed: (downloadingBool) => setDownloadingSongs(downloadingBool),
     });
   };
 

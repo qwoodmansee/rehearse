@@ -7,8 +7,8 @@ export async function GetSongs({
   shouldDownload = false,
   googleDriveURL,
 }) {
-  const localSongsDirectoryInfo = await getInfoAsync(`${documentDirectory}`);
-  if (!localSongsDirectoryInfo.exists) { await makeDirectoryAsync(`${localSongDirectory}`); }
+  const localSongsDirectoryInfo = await getInfoAsync(localSongDirectory);
+  if (!localSongsDirectoryInfo.exists) { await makeDirectoryAsync(localSongDirectory); }
   const existingSongs = await getAlreadyDownloadedSongs();
   const downloadedSongs = shouldDownload ? await downloadFromDrive(googleDriveURL) : [];
   return [...existingSongs, ...downloadedSongs];
