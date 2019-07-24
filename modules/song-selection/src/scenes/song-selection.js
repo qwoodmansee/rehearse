@@ -12,21 +12,18 @@ import { GetSongs } from '@song-selection/src/api/google-drive-access';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { withMappedNavigationParams } from 'react-navigation-props-mapper';
 
-function SongSelection({ songs, navigation }) {
-  const [songList, setSongList] = useState(songs);
-  const [downloadingSongs, setDownloadingSongs] = useState(false);
-  const [driveUrl, setDriveUrl] = useState('');
+function SongSelection({ navigation }) {
+  const [songList, setSongList] = useState([]);
 
   useEffect(() => {
     const fetchSongs = async () => {
-      const downloadedSongs = await GetSongs({
+      await GetSongs({
         shouldDownload: false,
-        googleDriveURL: driveUrl,
+        onComplete: setSongList,
       });
-      setSongList(downloadedSongs);
     };
     fetchSongs();
-  }, [driveUrl, downloadingSongs]);
+  }, []);
 
   const onSongSelect = (song) => {
     navigation.navigate('PlayerScene', {
@@ -36,10 +33,13 @@ function SongSelection({ songs, navigation }) {
   };
 
   const onGoogleSettingsSelect = () => {
-    navigation.navigate('GoogleSettings', {
-      originalDriveUrl: driveUrl,
-      onDriveURLUpdated: (newDriveUrl) => setDriveUrl(newDriveUrl),
-      onSyncSongsPressed: (downloadingBool) => setDownloadingSongs(downloadingBool),
+    navigation.navigate('GoogleSettings');
+  };
+
+  const getLocalSongs = async () => {
+    await GetSongs({
+      shouldDownload: false,
+      onComplete: setSongList,
     });
   };
 
@@ -48,7 +48,6 @@ function SongSelection({ songs, navigation }) {
       <ScrollView contentContainerStyle={styles.songListContainer}>
         <RehearseText style={styles.selectSongTitle}>Select Song</RehearseText>
         {songList.map((song, i) => {
-          console.log(song);
           return (
             <SongSelectionButton
               key={i}
@@ -58,9 +57,6 @@ function SongSelection({ songs, navigation }) {
               style={styles.songSelectButton}
             />);
         })}
-        {downloadingSongs &&
-          <RehearseText>Downloading...</RehearseText>
-        }
       </ScrollView>
 
       <View contentContainerStyle={styles.googleInteractionsContainer}>
@@ -69,6 +65,12 @@ function SongSelection({ songs, navigation }) {
           style={styles.googleInteractionButton}
         >
           <RehearseText>Sync from Google Drive</RehearseText>
+        </RehearseButton>
+        <RehearseButton
+          onPress={() => getLocalSongs()}
+          style={styles.googleInteractionButton}
+        >
+          <RehearseText>Sync from Local Files</RehearseText>
         </RehearseButton>
       </View>
     </SafeAreaView>

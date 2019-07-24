@@ -8,26 +8,22 @@ import Theme from '@theme/src/utils/theme';
 import { AsyncStorage } from 'react-native';
 import { GetSongs } from '@song-selection/src/api/google-drive-access';
 import { TextInput, View } from 'react-native';
-import { createDownloadResumable, deleteAsync, documentDirectory, getInfoAsync, makeDirectoryAsync } from 'expo-file-system';
-import { deleteItemAsync, getItemAsync, setItemAsync } from 'expo-secure-store';
+import { deleteAsync } from 'expo-file-system';
+import { deleteItemAsync } from 'expo-secure-store';
 import { withMappedNavigationParams } from 'react-navigation-props-mapper';
 
-function GoogleSettings({
-  navigation, onDriveURLUpdated, onSyncSongsPressed, originalDriveUrl,
-}) {
+function GoogleSettings({ navigation }) {
   const [downloadingSongs, setDownloadingSongs] = useState(false);
-  const [driveUrl, setDriveUrl] = useState(originalDriveUrl);
-  const [settingUrl, setSettingUrl] = useState(driveUrl === '');
+  const [driveUrl, setDriveUrl] = useState('');
+  const [settingUrl, setSettingUrl] = useState(true);
   const [tempUrlValue, setTempUrlValue] = useState('');
   const handleGetSongs = async () => {
     setDownloadingSongs(true);
-    onSyncSongsPressed(true);
     await GetSongs({
       shouldDownload: true,
       googleDriveURL: driveUrl,
     });
     setDownloadingSongs(false);
-    onSyncSongsPressed(true);
   };
 
   const handleDeleteSongs = async () => {
@@ -46,7 +42,6 @@ function GoogleSettings({
   const handleSetDriveUrl = () => {
     setSettingUrl(false);
     setDriveUrl(tempUrlValue);
-    onDriveURLUpdated(driveUrl);
   };
 
   const handleLogout = () => {
@@ -108,22 +103,22 @@ function GoogleSettings({
             >
               <RehearseText>Sync with Drive (Download new songs)</RehearseText>
             </RehearseButton>
-
-            <RehearseButton
-              onPress={() => handleDeleteSongs()}
-              style={styles.googleInteractionButton}
-            >
-              <RehearseText>Delete Local Files</RehearseText>
-            </RehearseButton>
-
-            <RehearseButton
-              onPress={() => handleLogout()}
-              style={styles.googleInteractionButton}
-            >
-              <RehearseText>Log out of Google</RehearseText>
-            </RehearseButton>
           </>
         }
+
+        <RehearseButton
+          onPress={() => handleDeleteSongs()}
+          style={styles.googleInteractionButton}
+        >
+          <RehearseText>Delete Local Files</RehearseText>
+        </RehearseButton>
+
+        <RehearseButton
+          onPress={() => handleLogout()}
+          style={styles.googleInteractionButton}
+        >
+          <RehearseText>Log out of Google</RehearseText>
+        </RehearseButton>
       </View>
     </SafeAreaView>
   );

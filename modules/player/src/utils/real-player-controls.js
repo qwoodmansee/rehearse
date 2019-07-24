@@ -1,4 +1,5 @@
 import BackToPoint from '@player/assets/back-to-point.png';
+import Colors from '@theme/src/utils/colors';
 import MetronomeDown from '@player/assets/metronome-down.png';
 import MetronomeUp from '@player/assets/metronome-up.png';
 import Pause from '@player/assets/pause.png';
@@ -6,7 +7,6 @@ import Play from '@player/assets/play.png';
 import PlayerControl from '@player/src/models/player-control';
 import Restart from '@player/assets/restart.png';
 import Stop from '@player/assets/stop.png';
-
 export default function RealPlayerControls(audioPlayer, isSettingPracticePoint, setIsSettingPracticePoint) {
   return [
     new PlayerControl({

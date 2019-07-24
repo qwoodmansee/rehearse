@@ -14,8 +14,8 @@ export default class AudioPlayer {
   }
 
   async setPlaybackStatusUpdate(playbackStatusCallback) {
-    this.playbackObject.setOnPlaybackStatusUpdate(null);
-    await this.playbackObject.setOnPlaybackStatusUpdate(playbackStatusCallback);
+    // this.playbackObject.setOnPlaybackStatusUpdate(null);
+    this.playbackObject.setOnPlaybackStatusUpdate(playbackStatusCallback);
   }
 
   async loadAudioFile() {
@@ -25,7 +25,7 @@ export default class AudioPlayer {
       uri: this.song.localDownloadUri,
     }, {
       shouldPlay: true,
-      progressUpdateIntervalMillis: 50,
+      progressUpdateIntervalMillis: 500,
     });
   }
 

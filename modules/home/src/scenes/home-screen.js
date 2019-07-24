@@ -5,7 +5,7 @@ import RehearseButton from '@core/src/components/rehearse-button';
 import RehearseText from '@core/src/components/rehearse-text';
 import SafeAreaView from '@core/src/components/safe-area-view';
 import Theme from '@theme/src/utils/theme';
-import { SignInWithGoogleAsync } from '@auth/src/google-auth';
+import { SignInWithGoogleAsync, SignOutWithGoogleAsync } from '@auth/src/google-auth';
 import { StyleSheet, View } from 'react-native';
 import { getItemAsync } from 'expo-secure-store';
 import { withMappedNavigationParams } from 'react-navigation-props-mapper';
@@ -27,11 +27,13 @@ function HomeScreen({ navigation }) {
     setIsSignedIn(!!accessToken);
   };
 
+  const handleSignOut = async () => {
+    await SignOutWithGoogleAsync();
+    setIsSignedIn(false);
+  };
+
   const continueToSongSelection = () => {
-    const songs = [];
-    navigation.navigate('SongSelection', {
-      songs,
-    });
+    navigation.navigate('SongSelection', {});
   };
 
   return (
@@ -40,14 +42,30 @@ function HomeScreen({ navigation }) {
         <RehearseText style={styles.appName}>rehearse.</RehearseText>
       </View>
       <View style={styles.buttonContainer}>
-        {isSignedIn ? continueToSongSelection() : (
-          <RehearseButton
-            onPress={handleSignIn}
-            style={styles.button}
-          >
-            <RehearseText>Sign In With Google</RehearseText>
-          </RehearseButton>
-        )}
+        {isSignedIn ? (
+          <>
+            <RehearseButton
+              onPress={continueToSongSelection}
+              style={styles.button}
+            >
+              <RehearseText>Looks Like You are Signed In. Continue?</RehearseText>
+            </RehearseButton>
+            <RehearseButton
+              onPress={handleSignOut}
+              style={styles.button}
+            >
+              <RehearseText>I don&apos;t think that&apos;s right...</RehearseText>
+            </RehearseButton>
+          </>
+        )
+          : (
+            <RehearseButton
+              onPress={handleSignIn}
+              style={styles.button}
+            >
+              <RehearseText>Sign In With Google</RehearseText>
+            </RehearseButton>
+          )}
       </View>
     </SafeAreaView>
   );
@@ -80,6 +98,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     justifyContent: 'center',
     padding: 10,
+    margin: 10,
   },
 });
 

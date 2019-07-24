@@ -1,17 +1,20 @@
 import Song from '@core/src/models/song';
 import { AsyncStorage } from 'react-native';
-import { createDownloadResumable, deleteAsync, documentDirectory, getInfoAsync, makeDirectoryAsync } from 'expo-file-system';
+import { createDownloadResumable, documentDirectory, getInfoAsync, makeDirectoryAsync } from 'expo-file-system';
 import { getItemAsync } from 'expo-secure-store';
 
 export async function GetSongs({
   shouldDownload = false,
   googleDriveURL,
+  onComplete = () => {},
 }) {
   const localSongsDirectoryInfo = await getInfoAsync(localSongDirectory);
   if (!localSongsDirectoryInfo.exists) { await makeDirectoryAsync(localSongDirectory); }
   const existingSongs = await getAlreadyDownloadedSongs();
   const downloadedSongs = shouldDownload ? await downloadFromDrive(googleDriveURL) : [];
-  return [...existingSongs, ...downloadedSongs];
+  const gatheredSongs = [...existingSongs, ...downloadedSongs];
+  onComplete(gatheredSongs);
+  return gatheredSongs;
 }
 
 const downloadFromDrive = async (googleDriveURL) => {
@@ -60,20 +63,13 @@ export const getAlreadyDownloadedSongs = async () => {
 };
 
 const downloadSongs = async (songs, accessToken) => {
-  await Promise.all(songs.forEach(async (song) => {
+  await Promise.all(songs.map(async (song) => {
     if (song.localDownloadUri) {
       const existingFileData = await getInfoAsync(song.localDownloadUri);
       if (existingFileData.exists && existingFileData.size > 0) {
-        // await deleteAsync(song.localDownloadUri);
-        return;
+        return Promise.resolve({});
       }
     }
-    const logProgress = (downloadProgress) => {
-      const progress =
-        downloadProgress.totalBytesWritten /
-        downloadProgress.totalBytesExpectedToWrite;
-      console.log(progress);
-    };
 
     const resumable = createDownloadResumable(
       `${song.googleDriveUrl}?alt=media`,
@@ -82,16 +78,20 @@ const downloadSongs = async (songs, accessToken) => {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
-      },
-      logProgress);
+      }
+    );
+
     try {
       await resumable.downloadAsync();
+      console.log('download complete!');
       const existingSongsString = await AsyncStorage.getItem('SONGS');
       const existingSongs = existingSongsString ? JSON.parse(existingSongsString) : [];
       existingSongs.push(song);
       await AsyncStorage.setItem('SONGS', JSON.stringify(existingSongs));
+      return Promise.resolve({});
     } catch (e) {
       console.error(e);
+      return Promise.reject(e);
     }
   }));
 };

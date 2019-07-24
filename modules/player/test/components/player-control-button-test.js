@@ -2,6 +2,7 @@ import BackToPoint from '@player/assets/back-to-point.png';
 import PlayerControl from '@player/src/models/player-control';
 import PlayerControlButton from '@player/src/components/player-control-button';
 import React from 'react';
+import RehearseText from '@core/src/components/rehearse-text';
 import { fireEvent, render } from '@testing-library/react-native';
 
 describe('PlayerControlButton', () => {
@@ -28,5 +29,18 @@ describe('PlayerControlButton', () => {
       />);
     fireEvent.press(getByTestId('test-control'));
     expect(mockControlFn).toHaveBeenCalled();
+  });
+
+  describe('when passed text', () => {
+    it('renders the text', () => {
+      const { getByText } = render(
+        <PlayerControlButton
+          playerControl={new PlayerControl({
+            text: 'ButtonText',
+            controlFn: () => {},
+          })}
+        />);
+      getByText('ButtonText');
+    });
   });
 });
