@@ -4,8 +4,8 @@ import { deleteItemAsync, getItemAsync, setItemAsync } from 'expo-secure-store';
 const config = {
   iosClientId: '187519984491-61hv6hvufpeiai7sg41rre5ka62e5fs7.apps.googleusercontent.com',
   androidClientId: '187519984491-jlj13hshd2alq5krd1ql08gh87lq0eq2.apps.googleusercontent.com',
-  // iosStandaloneAppClientId: '<YOUR_IOS_CLIENT_ID>',
-  // androidStandaloneAppClientId: '<YOUR_ANDROID_CLIENT_ID>',
+  iosStandaloneAppClientId: 'com.googleusercontent.apps.187519984491-e2qltod32b04uobtmk32sipat8ln8q2e',
+  androidStandaloneAppClientId: '187519984491-nbnu947pglvrabpcgijum63e69adfv6e.apps.googleusercontent.com',
   scopes: ['profile', 'https://www.googleapis.com/auth/drive.readonly'],
 };
 

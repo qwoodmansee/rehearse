@@ -1,21 +1,21 @@
 {
   "expo": {
-    "name": "practice",
-    "slug": "practiceapp",
+    "name": "Rehearse Pro",
+    "slug": "rehearse-app",
     "privacy": "public",
     "sdkVersion": "33.0.0",
     "platforms": [
       "ios",
-      "android",
-      "web"
+      "android"
     ],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
+    "primaryColor": "#424242",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#1b1b1b"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -24,7 +24,24 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "bundleIdentifier": "com.qwoodmansee.rehearse",
+      "buildNumber": "1.0.1",
+      "supportsTablet": true,
+      "config": {
+        "googleSignIn": {
+          "reservedClientId": "com.googleusercontent.apps.187519984491-e2qltod32b04uobtmk32sipat8ln8q2e"
+        }
+      }
+    },
+    "android": {
+      "package": "com.qwoodmansee.rehearse",
+      "versionCode": 1,
+      "config": {
+        "googleSignIn": {
+          "apiKey": "AIzaSyD94JQCeuSVS-v9vAaA0e31x-g_CPFIB1U",
+          "certificateHash": "5D4A93EBF1ADB9B503222AC2A01E23AFC555B243"
+        }
+      }
     }
   }
 }
