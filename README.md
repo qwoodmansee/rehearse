@@ -25,3 +25,6 @@ For testing, [Jest](https://jestjs.io/docs/en/getting-started) combined with [na
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
+
+## Deployed Application Privacy Policy
+[Privacy Policy](https://github.com/qwoodmansee/rehearse/blob/master/privacy-policy.md)
