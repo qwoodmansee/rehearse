@@ -6,7 +6,7 @@ const config = {
   androidClientId: '187519984491-jlj13hshd2alq5krd1ql08gh87lq0eq2.apps.googleusercontent.com',
   // iosStandaloneAppClientId: '<YOUR_IOS_CLIENT_ID>',
   // androidStandaloneAppClientId: '<YOUR_ANDROID_CLIENT_ID>',
-  scopes: ['profile'],
+  scopes: ['profile', 'https://www.googleapis.com/auth/drive.readonly'],
 };
 
 export async function SignInWithGoogleAsync() {

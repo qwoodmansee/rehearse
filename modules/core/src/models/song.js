@@ -1,13 +1,11 @@
 export default class Song {
-  constructor({ googleDriveUrl }) {
-    this.googleDriveUrl = googleDriveUrl;
-    this.songName = this._determineSongName({
-      googleDriveUrl,
-    });
-    this.songLength = 120;
-  }
-
-  _determineSongName({ googleDriveUrl }) {
-    return googleDriveUrl;
+  constructor({
+    googleDriveId, songName, localDownloadUri,
+  }) {
+    this.googleDriveId = googleDriveId;
+    this.googleDriveUrl = `https://www.googleapis.com/drive/v3/files/${googleDriveId}?alt=media?fields=fileExtension%2CfullFileExtension`;
+    this.songName = songName;
+    this.localDownloadUri = localDownloadUri;
+    this.songLength = null;
   }
 }
